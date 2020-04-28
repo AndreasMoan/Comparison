@@ -6,7 +6,6 @@ import HGSADCwSO.Utilities;
 import HGSADCwSO.protocols.FitnessEvaluationProtocol;
 import HGSADCwSO.protocols.ReproductionProtocol;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class ReproductionStandard implements ReproductionProtocol {

@@ -3,7 +3,6 @@ package HGSADCwSO.implementations;
 import HGSADCwSO.Individual;
 import HGSADCwSO.Order;
 import HGSADCwSO.ProblemData;
-import HGSADCwSO.Vessel;
 import HGSADCwSO.protocols.FitnessEvaluationProtocol;
 import HGSADCwSO.protocols.InitialPopulationProtocol;
 
@@ -15,6 +14,7 @@ public class InitialPopulationStandard implements InitialPopulationProtocol {
     private int numberOfRestarts;
     private FitnessEvaluationProtocol fitnessEvaluationProtocol;
 
+
     public InitialPopulationStandard(ProblemData problemData, FitnessEvaluationProtocol fitnessEvaluationProtocol) {
         this.problemData = problemData;
         this.fitnessEvaluationProtocol = fitnessEvaluationProtocol;
@@ -23,8 +23,8 @@ public class InitialPopulationStandard implements InitialPopulationProtocol {
     }
 
     public Individual createIndividual(){
-        HashMap<Integer, Set<Integer>> vesselOrderChromsome = createVesselOrderChromosome();
-        HashMap<Integer, ArrayList<Integer>> vesselTourChromosome = createVesselTourChromosome(vesselOrderChromsome);
+        HashMap<Integer, Set<Integer>> vesselOrderChromosome = createVesselOrderChromosome();
+        HashMap<Integer, ArrayList<Integer>> vesselTourChromosome = createVesselTourChromosome(vesselOrderChromosome);
         Individual kid = new Individual(vesselTourChromosome, fitnessEvaluationProtocol);
         return kid;
     }
@@ -69,4 +69,6 @@ public class InitialPopulationStandard implements InitialPopulationProtocol {
         System.out.println(vesselTourChromosome);
         return vesselTourChromosome;
     }
+
+
 }

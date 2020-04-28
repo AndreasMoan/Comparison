@@ -1,7 +1,6 @@
 package HGSADCwSO.implementations;
 
 import HGSADCwSO.ProblemData;
-import HGSADCwSO.Utilities;
 import HGSADCwSO.protocols.SailingLegCalculationsProtocol;
 
 public class SailingLegCalculationsQuickAndDirty implements SailingLegCalculationsProtocol {
