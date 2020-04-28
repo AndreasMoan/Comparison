@@ -11,7 +11,6 @@ public class Genotype {
     public Genotype(HashMap<Integer, ArrayList<Integer>> vesselTourChromosome) {
 
         this.vesselTourChromosome = vesselTourChromosome;
-
     }
 
     public void setVesselTourChromosome(HashMap<Integer, ArrayList<Integer>> vesselTourChromosome) {

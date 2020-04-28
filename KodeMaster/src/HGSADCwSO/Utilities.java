@@ -64,31 +64,6 @@ public class Utilities {
         return allElements;
     }
 
-    public static Comparator<Individual> getFitnessComparator() {
-        return new Comparator<Individual>() {
-            @Override
-            public int compare(Individual individual1, Individual individual2) {
-                if (individual1.getFitness() < individual2.getFitness()){
-                    return  1;
-                }
-                else if (individual1.getFitness() > individual2.getFitness()) {
-                    return  -1;
-                }
-                else {
-                    return 0;
-                }
-            }
-        };
-    }
-
-    public static <K> Comparator <Map.Entry<K, Double>> getMapEntryWithDoubleComparator() {
-        return new Comparator<Map.Entry<K, Double>>() {
-            public int compare(Map.Entry<K, Double> o1, Map.Entry<K, Double> o2) {
-                return (o1.getValue()).compareTo(o2.getValue());
-            }
-        };
-    }
-
     public static <T> Set<Set<T>> cartesianProduct(Set<T> set) { //returns cartesian product of itself, i.e. set x set, excluding those pairs where both elements in a pair are equal
         HashSet<Set<T>> cartProduct = new HashSet<>();
         for (T element : set) {
@@ -113,6 +88,98 @@ public class Utilities {
             vesselTourCopy.put(vessel, visitSequence);
         }
         return vesselTourCopy;
+    }
+
+    public static Comparator<Individual> getFitnessComparator() {
+        return new Comparator<Individual>() {
+            @Override
+            public int compare(Individual individual1, Individual individual2) {
+                if (individual1.getFitness() < individual2.getFitness()){
+                    return  1;
+                }
+                else if (individual1.getFitness() > individual2.getFitness()) {
+                    return  -1;
+                }
+                else {
+                    return 0;
+                }
+            }
+        };
+    }
+
+    public static Comparator<Order> getDeadlineComparator() { //testet! Den gir tidligste deadline først
+        return new Comparator<Order>() {
+            @Override
+            public int compare(Order order1, Order order2) {
+                if (order1.getDeadline() > order2.getDeadline()){
+                    return  1;
+                }
+                else if (order1.getDeadline() < order2.getDeadline()) {
+                    return  -1;
+                }
+                else {
+                    return 0;
+                }
+            }
+        };
+    }
+
+
+    public static <K> Comparator <Map.Entry<K, Double>> getMapEntryWithDoubleComparator() {
+        return new Comparator<Map.Entry<K, Double>>() {
+            public int compare(Map.Entry<K, Double> o1, Map.Entry<K, Double> o2) {
+                return (o1.getValue()).compareTo(o2.getValue());
+            }
+        };
+    }
+
+    //sorts so the elements with the lowest biased fitness are first in the list //TODO test
+    public static Comparator<Individual> getBiasedFitnessComparator() {
+        return new Comparator<Individual>() {
+            public int compare(Individual ind1, Individual ind2) {
+                if (ind1.getBiasedFitness() < ind2.getBiasedFitness()) {
+                    return -1;
+                }
+                else if (ind1.getBiasedFitness() > ind2.getBiasedFitness()) {
+                    return 1;
+                }
+                else {
+                    return 0;
+                }
+            }
+        };
+    }
+
+    //sorts so the elements with the penalized costs are first in the list //TODO test
+    public static Comparator<Individual> getPenalizedCostComparator() {
+        return new Comparator<Individual>() {
+            public int compare(Individual ind1, Individual ind2) {
+                if (ind1.getPenalizedCost() < ind2.getPenalizedCost()) {
+                    return -1;
+                }
+                else if (ind1.getPenalizedCost() > ind2.getPenalizedCost()) {
+                    return 1;
+                }
+                else {
+                    return 0;
+                }
+            }
+        };
+    }
+
+    //sorts so the elements with the diversity contribution are first in the list //TODO test
+    public static Comparator<Individual> getDiversityContributionComparator() {
+        return new Comparator<Individual>() {
+            public int compare(Individual ind1, Individual ind2) {
+                if (ind1.getDiversityContribution() < ind2.getDiversityContribution()) {
+                    return 1;
+                }
+                else if (ind1.getDiversityContribution() > ind2.getDiversityContribution()) {
+                    return -1;
+                }
+                return 0;
+            }
+        };
     }
 
 }

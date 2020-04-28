@@ -1,7 +1,5 @@
 package HGSADCwSO.implementations.DAG;
 
-import java.util.ArrayList;
-
 public class Edge {
 
     private Node parentNode;

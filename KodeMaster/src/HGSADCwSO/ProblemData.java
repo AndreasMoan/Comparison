@@ -1,10 +1,7 @@
 package HGSADCwSO;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
-
-import java.util.HashMap;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 
 public class ProblemData {
@@ -26,7 +23,6 @@ public class ProblemData {
                        ArrayList<Installation> installations,
                        ArrayList<Vessel> vessels,
                        HashMap<Installation, HashMap<Installation, Double>> distances,
-                       /*HashMap<Order, HashMap<Order, Double>> distances,*/ //trenger å lage noe som denne
                        ArrayList<Order> orders,
                        ArrayList<Integer> weatherStatesByHour,
                        HashMap<Integer, Double> weatherImpactByState) {
@@ -42,9 +38,11 @@ public class ProblemData {
         setInstallationsByNumber();
         setVesselsByNumber();
         setOrdersByNumber();
+        setDistancesBetweenOrderNumbersByDay();
     }
 
     public void setDistancesBetweenOrderNumbersByDay() {
+        distancesBetweenOrderNumbersByDay = new HashMap<>();
         distancesBetweenOrderNumbersByDay.put(0, new HashMap<Integer, HashMap<Integer, Double>>());
         for (Order order1 : orders){
             distancesBetweenOrderNumbersByDay.get(0).put(order1.getNumber(), new HashMap<Integer, Double>());
@@ -118,6 +116,7 @@ public class ProblemData {
     }
 
     public HashMap<Integer, Vessel> getVesselByNumber() {return vesselByNumber;}
+    //public Vessel getVesselByNumber(Integer vesselNumber){return vesselByNumber.get(vesselNumber);}
 
     public double getDistance(Installation fromInstallation, Installation toInstallation) {
         return distances.get(fromInstallation).get(toInstallation);
@@ -125,6 +124,10 @@ public class ProblemData {
 
     public double getDistanceByIndex(int fromInstallationIndex, int toInstallationIndex) {
         return getDistance(getInstallationByNumber().get(fromInstallationIndex), getInstallationByNumber().get(toInstallationIndex));
+    }
+
+    public HashMap<Integer, HashMap<Integer, HashMap<Integer, Double>>> getDistancesBetweenOrderNumbersByDay() {
+        return distancesBetweenOrderNumbersByDay;
     }
 
     public int getInstallationNumberByOrderNumber(int orderNumber) {

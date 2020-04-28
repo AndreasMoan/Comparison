@@ -1,12 +1,8 @@
 package HGSADCwSO;
 
-import HGSADCwSO.implementations.*;
 import HGSADCwSO.implementations.DAG.FitnessEvaluationDAG;
-import HGSADCwSO.protocols.EducationProtocol;
-import HGSADCwSO.protocols.FitnessEvaluationProtocol;
-import HGSADCwSO.protocols.InitialPopulationProtocol;
-import HGSADCwSO.protocols.ParentSelectionProtocol;
-import HGSADCwSO.protocols.ReproductionProtocol;
+import HGSADCwSO.implementations.*;
+import HGSADCwSO.protocols.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,13 +17,15 @@ public class Process {
     private EducationProtocol educationProtocol;
     private FitnessEvaluationProtocol fitnessEvaluationProtocol;
     private ReproductionProtocol reproductionProtocol;
+    private PenaltyAdjustmentProtocol penaltyAdjustmentProtocol;
     private int processIteration;
     private HashMap<Integer, ArrayList<Individual>> feasibleSubPopulationByIteration = new HashMap<Integer, ArrayList<Individual>>();
     private HashMap<Integer, ArrayList<Individual>> infeasibleSubPopulationByIteration = new HashMap<Integer, ArrayList<Individual>>();
     private HashMap<Integer, Individual> bestFeasibleIndividualByIteration = new HashMap<Integer, Individual>();
 
-    public Process(ProblemData problemData) {
+    public Process(ProblemData problemData, PenaltyAdjustmentProtocol penaltyAdjustmentProtocol) {
         this.problemData = problemData;
+        this.penaltyAdjustmentProtocol = penaltyAdjustmentProtocol;
         selectProtocols();
     }
 
@@ -105,7 +103,7 @@ public class Process {
     private void selectEducationProtocol(){
         switch (problemData.getHeuristicParameters().get("Education protocol")) {
             case "cost":
-                educationProtocol = new EducationStandard(problemData, fitnessEvaluationProtocol);
+                educationProtocol = new EducationStandard(problemData, fitnessEvaluationProtocol, penaltyAdjustmentProtocol);
                 break;
             default:
                 educationProtocol = null;
@@ -138,15 +136,11 @@ public class Process {
         }
     }
 
-    public void updateIterationsSinceImprovementCounter(boolean isImprovingSolution) {
-    }
+    public void updateIterationsSinceImprovementCounter(boolean isImprovingSolution) { } //TODO - Ligger i DiversificationAndStopping
 
-    public void adjustPenaltyParameters(ArrayList<Individual> feasiblePopulation, ArrayList<Individual> infeasiblePopulation) {
-    }
+    public void adjustPenaltyParameters(ArrayList<Individual> feasiblePopulation, ArrayList<Individual> infeasiblePopulation) { } //TODO - Ligger i PenaltyAdjustmentProtocol
 
-    public boolean isDiversifyIteration() {
-        return false;
-    }
+    public boolean isDiversifyIteration() { return false; } //TODO - Ligger i DiversificationAndStopping
 
     public void recordRunStatistics(int iteration, ArrayList<Individual> feasiblePopulation, ArrayList<Individual> infeasiblePopulation, Individual bestFeasibleIndividual) {
         processIteration = iteration;
@@ -154,13 +148,13 @@ public class Process {
         infeasibleSubPopulationByIteration.put(iteration, infeasiblePopulation);
         bestFeasibleIndividualByIteration.put(iteration, bestFeasibleIndividual);
 
-        // System.out.println("Iteration: " + iteration + " Feasible pop size: " + feasiblePopulation.size() + " Infeasible pop size: " + infeasiblePopulation.size());
+        System.out.println("Iteration: " + iteration + " Feasible pop size: " + feasiblePopulation.size() + " Infeasible pop size: " + infeasiblePopulation.size());
     }
 
-    public void addDiversityDistance(Individual kid) {
+    public void addDiversityDistance(Individual kid) { //TODO - Ligger i FitnessEvaluation
     }
 
-    public void updateBiasedFitness(ArrayList<Individual> feasiblePopulation, ArrayList<Individual> infeasiblePopulation) {
+    public void updateBiasedFitness(ArrayList<Individual> feasiblePopulation, ArrayList<Individual> infeasiblePopulation) { //TODO - Ligger i FitnessEvaluation
     }
 
 

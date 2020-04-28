@@ -1,7 +1,5 @@
 package HGSADCwSO;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -20,8 +18,8 @@ public class HackInitProblemData {
         problemInstanceParameters.put("Impact on sailing from weather state 2","2,0");
         problemInstanceParameters.put("Impact on sailing from weather state 3","3,0");
         problemInstanceParameters.put("Time per hiv","0,1");
-        problemInstanceParameters.put("","");
-        problemInstanceParameters.put("","");
+        //problemInstanceParameters.put("","");
+        //problemInstanceParameters.put("","");
 
         HashMap<String, String> heuristicInstanceParameters = new HashMap<String, String>();
 
@@ -32,22 +30,30 @@ public class HackInitProblemData {
         heuristicInstanceParameters.put("Fitness evaluation protocol","dag");
         heuristicInstanceParameters.put("Population size","25");
         heuristicInstanceParameters.put("Number of offspring in a generation","75");
-        heuristicInstanceParameters.put("Education rate", "0.75");
-        heuristicInstanceParameters.put("Repair rate", "0.75");
+        heuristicInstanceParameters.put("Education rate", "0,75");
+        heuristicInstanceParameters.put("Repair rate", "0,75");
         heuristicInstanceParameters.put("Number of time periods per hour", "1");
         heuristicInstanceParameters.put("Sailing leg calculations protocol","quick and dirty");
         heuristicInstanceParameters.put("Cost penalty per excessive time period","10");
-        heuristicInstanceParameters.put("","");
-        heuristicInstanceParameters.put("","");
-        heuristicInstanceParameters.put("","");
-        heuristicInstanceParameters.put("","");
-
+        heuristicInstanceParameters.put("Length of time period", "60");
+        heuristicInstanceParameters.put("Factor to increase penalties with", "1,2");
+        heuristicInstanceParameters.put("Factor to decrease penalties with", "0,85");
+        heuristicInstanceParameters.put("Granularity threshold in RI", "0,4"); //share of neighbourhood
+        heuristicInstanceParameters.put("Proportion of individuals considered for distance evaluation", "0,2");
+        heuristicInstanceParameters.put("Proportion of elite individuals", "0,4");
+        heuristicInstanceParameters.put("Capacity constraint violation penalty", "5"); //TODO - sett en god verdi
+        heuristicInstanceParameters.put("Duration constraint violation penalty", "5"); //TODO - sett en god verdi
+        heuristicInstanceParameters.put("Deadline constraint violation penalty", "5"); //TODO - sett en god verdi
+        heuristicInstanceParameters.put("Feasible proportion target", "0,5"); //TODO - sett en god verdi
 
 
         ArrayList<Vessel> vessels = new ArrayList<Vessel>();
 
-        vessels.add(new Vessel("PSV1", 100, 7, 14, 0, 0, 3));
-        vessels.add(new Vessel("PSV2", 100, 7, 14, 0, 1, 2));
+        vessels.add(new Vessel("PSV1", 100, 7, 14, 0, 0, 4));
+        vessels.add(new Vessel("PSV2", 100, 7, 14, 0, 1, 3));
+        vessels.add(new Vessel("PSV2", 100, 7, 14, 0, 2,3));
+        vessels.add(new Vessel("PSV3", 100, 7, 14, 0, 3,2));
+        vessels.add(new Vessel("PSV4", 100, 7, 14, 0, 4,3));
 
         ArrayList<Installation> installations = new ArrayList<Installation>();
 
@@ -62,35 +68,34 @@ public class HackInitProblemData {
         installations.add(new Installation("OSE", 0,23, 8));
         installations.add(new Installation("OSB", 0,23, 9));
         installations.add(new Installation("OSC", 0,23, 10));
-        installations.add(new Installation("OSO", 0,23, 12));
-        installations.add(new Installation("SSC", 0,23, 13));
-        installations.add(new Installation("OSS", 0,23, 14));
-        installations.add(new Installation("DSD", 0,23, 15));
-        installations.add(new Installation("KVB", 0,23, 16));
-        installations.add(new Installation("VMO", 0,23, 17));
-        installations.add(new Installation("WEL", 0,23, 18));
-        installations.add(new Installation("VFB", 0,23, 19));
-        installations.add(new Installation("WEP", 0,23, 20));
-        installations.add(new Installation("HUL", 0,23, 21));
-        installations.add(new Installation("STA", 7,19, 22));
-        installations.add(new Installation("STB", 0,23, 23));
-        installations.add(new Installation("STC", 0,23, 24));
-        installations.add(new Installation("GFA", 0,23, 25));
-        installations.add(new Installation("GFB", 0,23, 26));
-        installations.add(new Installation("GFC", 0,23, 27));
-        installations.add(new Installation("SOD", 0,23, 28));
+        installations.add(new Installation("OSO", 0,23, 11));
+        installations.add(new Installation("SSC", 0,23, 12));
+        installations.add(new Installation("OSS", 0,23, 13));
+        installations.add(new Installation("DSD", 0,23, 14));
+        installations.add(new Installation("KVB", 0,23, 15));
+        installations.add(new Installation("VMO", 0,23, 16));
+        installations.add(new Installation("WEL", 0,23, 17));
+        installations.add(new Installation("VFB", 0,23, 18));
+        installations.add(new Installation("WEP", 0,23, 19));
+        installations.add(new Installation("HUL", 0,23, 20));
+        installations.add(new Installation("STA", 7,19, 21));
+        installations.add(new Installation("STB", 0,23, 22));
+        installations.add(new Installation("STC", 0,23, 23));
+        installations.add(new Installation("GFA", 0,23, 24));
+        installations.add(new Installation("GFB", 0,23, 25));
+        installations.add(new Installation("GFC", 0,23, 26));
+        installations.add(new Installation("SOD", 0,23, 27));
 
         ArrayList<Order> orders = new ArrayList<Order>();
 
-        orders.add(new Order(30,0, installations.get(4),1));
-        orders.add(new Order(30,0, installations.get(16),2));
-        orders.add(new Order(30,0, installations.get(11),3));
-        orders.add(new Order(30,0, installations.get(17),4));
-        orders.add(new Order(30,0, installations.get(20),5));
-        orders.add(new Order(30,0, installations.get(21),6));
-        orders.add(new Order(30,0, installations.get(26),7));
-        orders.add(new Order(40,0, installations.get(9), 8));
-        orders.add(new Order(30,0, installations.get(1), 9));
+        orders.add(new Order(30,0, installations.get(4),1, 1));
+        orders.add(new Order(30,0, installations.get(16),2, 2));
+        orders.add(new Order(30,0, installations.get(11),3, 3));
+        orders.add(new Order(30,0, installations.get(17),4, 4));
+        orders.add(new Order(30,0, installations.get(20),5, 5));
+        orders.add(new Order(30,0, installations.get(21),6, 6));
+        orders.add(new Order(30,0, installations.get(26),7, 7));
+        orders.add(new Order(40,0, installations.get(9), 8, 8));
 
         HashMap<Installation, HashMap<Installation, Double>> distances = new HashMap<Installation, HashMap<Installation, Double>>();
 
@@ -131,15 +136,14 @@ public class HackInitProblemData {
             }
         }
 
-        System.out.println(distances.get(installations.get(0)).get(installations.get(1)));
+        //System.out.println(distances.get(installations.get(0)).get(installations.get(1)));
 
         ArrayList<Integer> weatherStatesByHour = new ArrayList<Integer>(Arrays.asList(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2));
 
         HashMap<Integer, Double> weatherImpactByState = new HashMap<Integer, Double>();
-        weatherImpactByState.put(0, 1.0);
-        weatherImpactByState.put(1, 1.2);
-        weatherImpactByState.put(2, 1.3);
-        weatherImpactByState.put(3, 2.0);
+        weatherImpactByState.put(0,0.0);
+        weatherImpactByState.put(1,0.2);
+        weatherImpactByState.put(2,0.3);
 
         return new ProblemData(problemInstanceParameters, heuristicInstanceParameters, installations, vessels,distances, orders, weatherStatesByHour, weatherImpactByState);
 

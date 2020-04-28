@@ -1,8 +1,8 @@
 package HGSADCwSO;
 
 
-import javax.sound.midi.Soundbank;
-import java.sql.SQLOutput;
+import HGSADCwSO.implementations.PenaltyAdjustmentProtocol;
+
 import java.util.ArrayList;
 
 public class HGSADCwSOmain {
@@ -12,6 +12,7 @@ public class HGSADCwSOmain {
     private long startTime, stopTime;
     private ProblemData problemData;
     private Process process;
+    private PenaltyAdjustmentProtocol penaltyAdjustmentProtocol;
 
     private double bestCost = Double.POSITIVE_INFINITY;
 
@@ -37,14 +38,17 @@ public class HGSADCwSOmain {
         //io = new IO(inputFileName); //TODO
         //this.args = changeParameter;
         problemData = HackInitProblemData.hack();
+        penaltyAdjustmentProtocol = new PenaltyAdjustmentProtocol(0.5, problemData);
     }
 
     private void fullEvolutionaryRun(){
 
-        process = new Process(problemData);
+        process = new Process(problemData, penaltyAdjustmentProtocol);
         feasiblePopulation = new ArrayList<Individual>();
         infeasiblePopulation = new ArrayList<Individual>();
         bestFeasibleIndividual = null;
+
+        //penaltyAdjustmentProtocol = new PenaltyAdjustmentProtocol(0.5, problemData);
 
         iteration = 1;
         problemData.printProblemData(); //TODO
